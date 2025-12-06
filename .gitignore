@@ -1,0 +1,41 @@
+# Java / Maven
+invoiceng-api/target/
+*.class
+*.jar
+*.war
+*.ear
+
+# Node / Frontend
+invoiceng-web/node_modules/
+invoiceng-web/dist/
+invoiceng-web/.vite/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+*.env
+application-local.yml
+application-local.properties
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build
+build/
+out/
+
+# Test coverage
+coverage/

@@ -1,0 +1,99 @@
+spring:
+  application:
+    name: invoiceng-api
+
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/invoiceng}
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 300000
+      connection-timeout: 20000
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        jdbc:
+          time_zone: UTC
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    deserialization:
+      fail-on-unknown-properties: false
+    default-property-inclusion: non_null
+
+server:
+  port: ${PORT:8080}
+  error:
+    include-message: always
+    include-binding-errors: always
+
+# JWT Configuration
+jwt:
+  secret: ${JWT_SECRET:your-256-bit-secret-key-change-in-production-must-be-at-least-32-chars}
+  expiration: ${JWT_EXPIRATION:86400000} # 24 hours in milliseconds
+  refresh-expiration: ${JWT_REFRESH_EXPIRATION:604800000} # 7 days
+
+# Paystack Configuration
+paystack:
+  secret-key: ${PAYSTACK_SECRET_KEY:sk_test_xxxxx}
+  public-key: ${PAYSTACK_PUBLIC_KEY:pk_test_xxxxx}
+  base-url: https://api.paystack.co
+  callback-url: ${PAYSTACK_CALLBACK_URL:http://localhost:3000/payment/callback}
+
+# Termii SMS Configuration
+termii:
+  api-key: ${TERMII_API_KEY:your-termii-api-key}
+  sender-id: ${TERMII_SENDER_ID:InvoiceNG}
+  base-url: https://api.ng.termii.com
+
+# Storage Configuration (Cloudflare R2)
+storage:
+  r2:
+    account-id: ${R2_ACCOUNT_ID:}
+    access-key-id: ${R2_ACCESS_KEY_ID:}
+    secret-access-key: ${R2_SECRET_ACCESS_KEY:}
+    bucket-name: ${R2_BUCKET_NAME:invoiceng-files}
+    public-url: ${R2_PUBLIC_URL:}
+
+# OpenAPI Documentation
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+
+# Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when_authorized
+
+# Logging
+logging:
+  level:
+    com.invoiceng: INFO
+    org.springframework.security: INFO
+    org.hibernate.SQL: INFO
