@@ -34,7 +34,8 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/api/v1/auth/**",
                                 "/api/v1/webhooks/**",
-                                "/api/v1/pay/**"
+                                "/api/v1/pay/**",
+                                "/api/v1/dev/**"
                         ).permitAll()
                         // API documentation
                         .requestMatchers(

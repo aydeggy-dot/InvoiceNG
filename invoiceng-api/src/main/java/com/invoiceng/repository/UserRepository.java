@@ -27,4 +27,9 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     @Modifying
     @Query("UPDATE User u SET u.invoiceCountThisMonth = 0, u.invoiceCountResetAt = :resetAt WHERE u.invoiceCountResetAt < :resetAt")
     void resetMonthlyInvoiceCounts(@Param("resetAt") LocalDateTime resetAt);
+
+    Optional<User> findByWhatsappPhoneNumberId(String whatsappPhoneNumberId);
+
+    @Query("SELECT u FROM User u WHERE u.whatsappConnected = true")
+    java.util.List<User> findAllWhatsappConnected();
 }

@@ -4,7 +4,11 @@ import {
   Users,
   FileText,
   Settings,
-  X
+  X,
+  MessageSquare,
+  ShoppingCart,
+  Package,
+  BarChart3
 } from 'lucide-react';
 import { cn } from '@/utils/cn';
 
@@ -15,6 +19,10 @@ interface SidebarProps {
 
 const navigation = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
+  { name: 'Analytics', href: '/analytics', icon: BarChart3 },
+  { name: 'Conversations', href: '/conversations', icon: MessageSquare },
+  { name: 'Orders', href: '/orders', icon: ShoppingCart },
+  { name: 'Products', href: '/products', icon: Package },
   { name: 'Customers', href: '/customers', icon: Users },
   { name: 'Invoices', href: '/invoices', icon: FileText },
   { name: 'Settings', href: '/settings', icon: Settings },

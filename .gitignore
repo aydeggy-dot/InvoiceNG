@@ -39,3 +39,22 @@ out/
 
 # Test coverage
 coverage/
+
+# Sensitive files and credentials
+*.txt
+config_*.txt
+token.txt
+
+# Installers and binaries
+*.exe
+*.msi
+*.dmg
+
+# Screenshots and temporary images
+*.png
+
+# Windows specific
+nul
+
+# Claude Code settings (optional - remove if you want to track)
+# .claude/

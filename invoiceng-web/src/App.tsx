@@ -14,6 +14,12 @@ import { CustomersListPage } from '@/pages/customers';
 import { InvoicesListPage, CreateInvoicePage, InvoiceDetailPage } from '@/pages/invoices';
 import { SettingsPage } from '@/pages/settings';
 
+// Business Dashboard pages
+import { AnalyticsPage } from '@/pages/analytics';
+import { ConversationsPage } from '@/pages/conversations';
+import { OrdersPage } from '@/pages/orders';
+import { ProductsPage } from '@/pages/products';
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -57,6 +63,10 @@ export default function App() {
             }
           >
             <Route index element={<DashboardPage />} />
+            <Route path="analytics" element={<AnalyticsPage />} />
+            <Route path="conversations" element={<ConversationsPage />} />
+            <Route path="orders" element={<OrdersPage />} />
+            <Route path="products" element={<ProductsPage />} />
             <Route path="customers" element={<CustomersListPage />} />
             <Route path="invoices" element={<InvoicesListPage />} />
             <Route path="invoices/new" element={<CreateInvoicePage />} />

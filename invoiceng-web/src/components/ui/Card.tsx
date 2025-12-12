@@ -67,3 +67,21 @@ export const CardTitle = forwardRef<HTMLHeadingElement, CardTitleProps>(
 );
 
 CardTitle.displayName = 'CardTitle';
+
+export interface CardContentProps extends HTMLAttributes<HTMLDivElement> {}
+
+export const CardContent = forwardRef<HTMLDivElement, CardContentProps>(
+  ({ className, children, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={cn('', className)}
+        {...props}
+      >
+        {children}
+      </div>
+    );
+  }
+);
+
+CardContent.displayName = 'CardContent';

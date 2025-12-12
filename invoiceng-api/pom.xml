@@ -99,6 +99,13 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
+        <!-- Anthropic Claude SDK -->
+        <dependency>
+            <groupId>com.anthropic</groupId>
+            <artifactId>anthropic-java</artifactId>
+            <version>0.1.0-alpha.4</version>
+        </dependency>
+
         <!-- Utilities -->
         <dependency>
             <groupId>commons-codec</groupId>

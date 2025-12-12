@@ -64,6 +64,23 @@ termii:
   sender-id: ${TERMII_SENDER_ID:InvoiceNG}
   base-url: https://api.ng.termii.com
 
+# WhatsApp Cloud API Configuration
+whatsapp:
+  api-version: ${WHATSAPP_API_VERSION:v18.0}
+  access-token: ${WHATSAPP_ACCESS_TOKEN:your-whatsapp-access-token}
+  verify-token: ${WHATSAPP_VERIFY_TOKEN:your-verify-token}
+  phone-number-id: ${WHATSAPP_PHONE_NUMBER_ID:your-phone-number-id}
+  business-account-id: ${WHATSAPP_BUSINESS_ACCOUNT_ID:your-business-account-id}
+  base-url: https://graph.facebook.com
+
+# Claude AI Configuration
+claude:
+  api-key: ${CLAUDE_API_KEY:your-claude-api-key}
+  model: ${CLAUDE_MODEL:claude-sonnet-4-20250514}
+  base-url: https://api.anthropic.com
+  max-tokens: ${CLAUDE_MAX_TOKENS:512}
+  temperature: ${CLAUDE_TEMPERATURE:0.8}
+
 # Storage Configuration (Cloudflare R2)
 storage:
   r2:

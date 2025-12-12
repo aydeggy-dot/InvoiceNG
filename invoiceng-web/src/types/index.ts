@@ -193,3 +193,225 @@ export interface DashboardStats {
   comparison: DashboardComparison;
   recentActivity: ActivityItem[];
 }
+
+// WhatsApp Conversation types
+export interface Conversation {
+  id: string;
+  customerPhone: string;
+  customerName: string | null;
+  customerWhatsappId: string | null;
+  state: string;
+  context: Record<string, unknown>;
+  cart: unknown;
+  isActive: boolean;
+  lastMessageAt: string | null;
+  messageCount: number;
+  isHandedOff: boolean;
+  handedOffAt: string | null;
+  handedOffReason: string | null;
+  outcome: string | null;
+  orderId: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ConversationMessage {
+  id: string;
+  conversationId: string;
+  direction: 'inbound' | 'outbound';
+  messageType: string;
+  content: string;
+  mediaUrl: string | null;
+  whatsappMessageId: string | null;
+  intentDetected: string | null;
+  entitiesExtracted: Record<string, unknown> | null;
+  aiConfidence: number | null;
+  createdAt: string;
+}
+
+// WhatsApp Order types
+export type PaymentStatus = 'pending' | 'paid' | 'failed' | 'refunded';
+export type FulfillmentStatus = 'pending' | 'shipped' | 'delivered' | 'cancelled';
+
+export interface WhatsAppOrderItem {
+  productId: string;
+  productName: string;
+  quantity: number;
+  price: number;
+  total: number;
+}
+
+export interface WhatsAppOrder {
+  id: string;
+  orderNumber: string;
+  customerName: string;
+  customerPhone: string;
+  customerEmail: string | null;
+  deliveryAddress: string;
+  deliveryArea: string | null;
+  deliveryFee: number;
+  deliveryNotes: string | null;
+  items: WhatsAppOrderItem[];
+  subtotal: number;
+  discountAmount: number | null;
+  discountReason: string | null;
+  total: number;
+  paymentStatus: PaymentStatus;
+  paymentMethod: string | null;
+  paymentReference: string | null;
+  paymentLink: string | null;
+  paidAt: string | null;
+  fulfillmentStatus: FulfillmentStatus;
+  shippedAt: string | null;
+  deliveredAt: string | null;
+  trackingNumber: string | null;
+  internalNotes: string | null;
+  source: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// Product types
+export type ProductStatus = 'active' | 'draft' | 'archived';
+
+export interface ProductImage {
+  id: string;
+  url: string;
+  altText: string | null;
+  position: number;
+  isMain: boolean;
+}
+
+export interface ProductVariant {
+  id: string;
+  name: string;
+  sku: string | null;
+  options: Record<string, unknown>;
+  price: number;
+  quantity: number;
+  imageUrl: string | null;
+  inStock: boolean;
+}
+
+export interface Product {
+  id: string;
+  name: string;
+  description: string | null;
+  shortDescription: string | null;
+  category: string | null;
+  subcategory: string | null;
+  tags: string[];
+  price: number;
+  compareAtPrice: number | null;
+  costPrice: number | null;
+  minPrice: number | null;
+  hasVariants: boolean;
+  variantOptions: Record<string, unknown> | null;
+  trackInventory: boolean;
+  quantity: number;
+  allowBackorder: boolean;
+  aiKeywords: string[];
+  aiNotes: string | null;
+  status: ProductStatus;
+  inStock: boolean;
+  images: ProductImage[];
+  variants: ProductVariant[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateProductRequest {
+  name: string;
+  description?: string;
+  shortDescription?: string;
+  category?: string;
+  subcategory?: string;
+  tags?: string[];
+  price: number;
+  compareAtPrice?: number;
+  costPrice?: number;
+  trackInventory?: boolean;
+  quantity?: number;
+  allowBackorder?: boolean;
+  aiKeywords?: string[];
+  aiNotes?: string;
+  status?: ProductStatus;
+}
+
+export interface UpdateProductRequest {
+  name?: string;
+  description?: string;
+  shortDescription?: string;
+  category?: string;
+  subcategory?: string;
+  tags?: string[];
+  price?: number;
+  compareAtPrice?: number;
+  costPrice?: number;
+  trackInventory?: boolean;
+  quantity?: number;
+  allowBackorder?: boolean;
+  aiKeywords?: string[];
+  aiNotes?: string;
+  status?: ProductStatus;
+}
+
+// Analytics types
+export interface TimeSeriesData {
+  date: string;
+  value?: number;
+  count?: number;
+}
+
+export interface TopProductData {
+  productName: string;
+  orderCount: number;
+  revenue: number;
+}
+
+export interface Analytics {
+  // Conversation metrics
+  totalConversations: number;
+  activeConversations: number;
+  convertedConversations: number;
+  abandonedConversations: number;
+  handoffConversations: number;
+  conversionRate: number;
+
+  // Order metrics
+  totalOrders: number;
+  pendingOrders: number;
+  paidOrders: number;
+  shippedOrders: number;
+  deliveredOrders: number;
+  cancelledOrders: number;
+  totalRevenue: number;
+  averageOrderValue: number;
+
+  // Message metrics
+  totalMessages: number;
+  inboundMessages: number;
+  outboundMessages: number;
+
+  // Product metrics
+  totalProducts: number;
+  activeProducts: number;
+  outOfStockProducts: number;
+
+  // Time-series data
+  revenueByDay: TimeSeriesData[];
+  ordersByDay: TimeSeriesData[];
+  conversationsByDay: TimeSeriesData[];
+
+  // Top products
+  topProducts?: TopProductData[];
+}
+
+export interface QuickSummary {
+  conversationsToday: number;
+  conversationsThisWeek: number;
+  ordersToday: number;
+  ordersThisWeek: number;
+  revenueThisMonth: number;
+  pendingHandoffs: number;
+}

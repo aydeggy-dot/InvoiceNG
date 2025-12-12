@@ -59,6 +59,29 @@ public class User {
     @Column(name = "invoice_count_reset_at")
     private LocalDateTime invoiceCountResetAt;
 
+    // WhatsApp integration fields
+    @Column(name = "business_type", length = 50)
+    private String businessType;
+
+    @Column(name = "instagram_handle", length = 100)
+    private String instagramHandle;
+
+    @Column(name = "facebook_page", length = 255)
+    private String facebookPage;
+
+    @Column(name = "whatsapp_phone_number_id", length = 100)
+    private String whatsappPhoneNumberId;
+
+    @Column(name = "whatsapp_access_token", columnDefinition = "TEXT")
+    private String whatsappAccessToken;
+
+    @Column(name = "whatsapp_connected")
+    @Builder.Default
+    private Boolean whatsappConnected = false;
+
+    @Column(name = "whatsapp_connected_at")
+    private LocalDateTime whatsappConnectedAt;
+
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
@@ -66,4 +89,8 @@ public class User {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    public boolean isWhatsappConnected() {
+        return Boolean.TRUE.equals(whatsappConnected);
+    }
 }

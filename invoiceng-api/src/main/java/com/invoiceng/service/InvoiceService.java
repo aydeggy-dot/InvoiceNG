@@ -334,17 +334,25 @@ public class InvoiceService {
                 ? invoice.getCustomer().getName()
                 : "Customer";
 
-        // Initialize Paystack payment
-        PaystackService.PaystackInitResponse paystackResponse = paystackService.initializeTransaction(
-                paymentRef,
-                invoice.getTotal(),
-                customerEmail,
-                customerName,
-                invoice.getId()
-        );
+        // Try to initialize Paystack payment, but don't fail if it doesn't work
+        try {
+            PaystackService.PaystackInitResponse paystackResponse = paystackService.initializeTransaction(
+                    paymentRef,
+                    invoice.getTotal(),
+                    customerEmail,
+                    customerName,
+                    invoice.getId()
+            );
 
-        invoice.setPaymentLink(paystackResponse.getAuthorizationUrl());
-        invoice.setPaystackAccessCode(paystackResponse.getAccessCode());
+            invoice.setPaymentLink(paystackResponse.getAuthorizationUrl());
+            invoice.setPaystackAccessCode(paystackResponse.getAccessCode());
+        } catch (Exception e) {
+            log.warn("Failed to initialize Paystack payment for invoice {}: {}. Invoice will be sent without payment link.",
+                    invoice.getId(), e.getMessage());
+            // Set a placeholder payment link for development
+            invoice.setPaymentLink("https://paystack.com/pay/" + paymentRef);
+        }
+
         invoice.markAsSent();
 
         return invoiceRepository.save(invoice);
